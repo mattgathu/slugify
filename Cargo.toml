@@ -9,7 +9,7 @@ documentation = "https://docs.rs/slugify"
 homepage = "https://github.com/mattgathu/slugify"
 repository = "https://github.com/mattgathu/slugify"
 readme = "README.md"
-keywords = ["macro", "slug", "slugify", "slug generation"]
+keywords = ["macro", "slug", "slugify"]
 categories = ["text-processing", "rust-patterns"]
 license = "MIT"
 

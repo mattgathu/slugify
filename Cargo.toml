@@ -1,0 +1,21 @@
+[package]
+name = "slugify"
+version = "0.1.0"
+authors = ["Matt Gathu <mattgathu@gmail.com>"]
+
+description = "Macro for flexible slug generation"
+
+documentation = "https://docs.rs/slugify"
+homepage = "https://github.com/mattgathu/slugify"
+repository = "https://github.com/mattgathu/slugify"
+readme = "README.md"
+keywords = ["macro", "slug", "slugify", "slug generation"]
+categories = ["text-processing", "rust-patterns"]
+license = "MIT"
+
+[badges]
+travis-ci = { repository = "mattgathu/slugify"}
+appveyor = { repository = "mattgathu/slugify"}
+
+[dependencies]
+unidecode = "0.3.0"

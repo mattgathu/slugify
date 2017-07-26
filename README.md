@@ -6,7 +6,7 @@
 [![docs.rs](https://docs.rs/slugify/badge.svg)](https://docs.rs/slugify)
 [![License: MIT](https://img.shields.io/crates/l/slugify.svg)](LICENSE)
 
-**A utility macro for flexible slug genereation that handles unicode.**
+**A utility macro for flexible slug generation that handles unicode.**
 
 The `slugify!` macro implements a flexible slug generator, allowing for stop words, custom separator
 and maximum length options. The macro provides both a simple call format that has sane default parameters

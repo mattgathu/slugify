@@ -4,7 +4,7 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/tytk45snx8aqoctt?svg=true)](https://ci.appveyor.com/project/mattgathu/slugify)
 [![Crates.io](https://img.shields.io/crates/v/slugify.svg)](https://crates.io/crates/slugify)
 [![docs.rs](https://docs.rs/slugify/badge.svg)](https://docs.rs/slugify)
-[![License: MIT](https://img.shields.io/crates/l/slugify.svg)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 **A utility macro for flexible slug generation that handles unicode.**
 

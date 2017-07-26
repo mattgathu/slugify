@@ -1,6 +1,112 @@
+//! **A utility macro for flexible slug genereation that handles unicode.**
+//! 
+//! The `slugify!` macro implements a flexible slug generator, allowing for stop words, custom separator
+//! and maximum length options. The macro provides both a simple interface with sane default parameters
+//! but also allows the parameters to be overriden when needed.
+//! 
+//! Features:
+//!
+//!* Unicode strings support (phonetic conversion).
+//!* Support for custom slug separator.
+//!* Stop words filtering.
+//!* Slug maximum length support.
+//!
+//! 
+//!# Usage
+//! 
+//! This crate is on crates.io and can be used by adding `slugify` to the dependencies in your project's
+//! `Cargo.toml`
+//! 
+//! ```toml
+//! [dependencies]
+//! slugify = "0.1.0"
+//! ```
+//! 
+//!  and this to your crate root:
+//! 
+//!```rust,ignore
+//! #[macro_use] extern crate slugify;
+//!use slugify::slugify;
+//!```
+//! 
+//!# Examples
+//!
+//!## Basic slug generation
+//! 
+//!```rust
+//! # #[macro_use] extern crate slugify;
+//! # use slugify::slugify;
+//! # fn main() {
+//!assert_eq!(slugify!("hello world"), "hello-world");
+//! # }
+//!```
+//! 
+//!## Using a custom separator
+//! 
+//! ```rust
+//! # #[macro_use] extern crate slugify;
+//! # use slugify::slugify;
+//! # fn main() {
+//!assert_eq!(slugify!("hello world", separator = "."), "hello.world");
+//!assert_eq!(slugify!("hello world", separator = " "), "hello world");
+//! # }
+//! ```
+//! 
+//!## Stop words filtering
+//! 
+//!```rust
+//! # #[macro_use] extern crate slugify;
+//! # use slugify::slugify;
+//! # fn main() {
+//!assert_eq!(slugify!("the quick brown fox jumps over the lazy dog", stop_words = "the,fox"), "quick-brown-jumps-over-lazy-dog");
+//! # }
+//!```
+//! 
+//!## Maximum length
+//! 
+//!```rust
+//! # #[macro_use] extern crate slugify;
+//! # use slugify::slugify;
+//! # fn main() {
+//!assert_eq!(slugify!("hello world", max_length = 5), "hello");
+//!assert_eq!(slugify!("the hello world", stop_words = "the", max_length = 5), "hello");
+//! # }
+//!```
+//! 
+//!## Phonetic Conversion and accented text
+//! 
+//!```rust
+//! # #[macro_use] extern crate slugify;
+//! # use slugify::slugify;
+//! # fn main() {
+//!assert_eq!(slugify!("影師嗎"), "ying-shi-ma");
+//!assert_eq!(slugify!("Æúű--cool?"), "aeuu-cool");
+//!assert_eq!(slugify!("Nín hǎo. Wǒ shì zhōng guó rén"), "nin-hao-wo-shi-zhong-guo-ren");
+//! # }
+//!```
+//! 
+//!## Passing multiple optional parameters.
+//!
+//! **NOTE:** the order of optional parameters matters: **stop_words**, **separator**
+//! and then **max_length**. All of them are optional, however when specifying more than one optional parameter, this
+//! order must be adhered.
+//! 
+//!```rust
+//! # #[macro_use] extern crate slugify;
+//! # use slugify::slugify;
+//! # fn main() {
+//!assert_eq!(slugify!("the hello world", stop_words = "the", separator = "-"), "hello-world");
+//!assert_eq!(slugify!("the hello world", separator = ".", max_length = 10), "the.hello");
+//!assert_eq!(slugify!("the hello world", stop_words = "the", max_length = 5), "hello");
+//!assert_eq!(slugify!("the hello world", stop_words = "the", separator = "-", max_length = 20), "hello-world");
+//! # }
+//!```
+//!
 extern crate unidecode;
 use unidecode::unidecode;
 
+
+#[macro_export]
 macro_rules! slugify {
     ($text:expr) => (
         {

@@ -49,6 +49,7 @@
 //! # fn main() {
 //!assert_eq!(slugify!("hello world", separator = "."), "hello.world");
 //!assert_eq!(slugify!("hello world", separator = " "), "hello world");
+//!assert_eq!(slugify!("hello world", separator = ""), "helloworld");
 //! # }
 //! ```
 //! 
@@ -164,7 +165,12 @@ pub fn slugify(string: &str, stop_words: &str, sep: &str, max_length: Option<usi
     let mut string: String = unidecode(string.into())
         .to_lowercase()
         .trim()
-        .trim_matches(char_vec[0])
+        // guard against an empty char
+        // None result is redundant with .trim() but is nondestructive/safe
+        .trim_matches(match char_vec.get(0) {
+            Some(a) => a.to_owned(),
+            None => ' ',
+        })
         .replace(' ', &sep.to_string());
 
     // remove stop words
@@ -195,7 +201,7 @@ pub fn slugify(string: &str, stop_words: &str, sep: &str, max_length: Option<usi
         }
     }
 
-    if slug.last() == Some(&(char_vec[0] as u8)) {
+    if char_vec.len() > 0 && slug.last() == Some(&(char_vec[0] as u8)) {
         slug.pop();
     }
 

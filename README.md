@@ -51,6 +51,7 @@ assert_eq!(slugify!("hello world"), "hello-world");
  ```rust
  assert_eq!(slugify!("hello world", separator = "."), "hello.world");
  assert_eq!(slugify!("hello world", separator = " "), "hello world");
+ assert_eq!(slugify!("hello world", separator = ""), "helloworld");
  ```
  
 ## Stop words filtering
